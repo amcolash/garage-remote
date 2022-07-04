@@ -6,6 +6,7 @@ const { join } = require('path');
 require('dotenv').config();
 
 const PORT = process.env.PORT || 8003;
+const validIPs = JSON.parse(process.env.VALID_IPS);
 
 const app = express();
 
@@ -37,5 +38,20 @@ if (credentials.cert && credentials.key) {
   process.exit(1);
 }
 
+app.set('trust proxy', true);
+
 app.use(express.static(join(__dirname, 'dist')));
-app.use('/esp', proxy(process.env.SERVER));
+app.use('/esp', [
+  (req, res, next) => {
+    const ip = req.socket.remoteAddress;
+
+    // Filter out ip addresses before passing on to ESP
+    if (validIPs.indexOf(ip) === -1) {
+      res.send(401);
+      return;
+    }
+
+    next();
+  },
+  proxy(process.env.SERVER),
+]);
