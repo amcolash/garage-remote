@@ -14,6 +14,10 @@ self.addEventListener('install', function (evt) {
 self.addEventListener('fetch', (evt) => {
   let request = evt.request;
 
+  if (request.url.indexOf('/toggle?code=') !== -1) {
+    return evt.respondWith(fetch(request));
+  }
+
   evt.respondWith(
     caches.match(request).then((matching) => {
       // Always try to grab newer versions of cached files, but do not block
