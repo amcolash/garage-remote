@@ -71,7 +71,7 @@ export function Toggle(props) {
         style={{ background: status === 'loading' ? '#8c8' : status === 'error' ? '#c55' : status === 'success' ? '#55c' : '#5a5' }}
         onClick={() => {
           const totpCode = totp(code);
-          const url = `http://${server}/toggle?code=${totpCode}`;
+          const url = `https://${server}/toggle?code=${totpCode}`;
 
           setStatus('loading');
 
