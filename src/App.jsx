@@ -49,6 +49,7 @@ export function App() {
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: 'sans-serif',
+        position: 'relative',
       }}
       onClick={(e) => setTimer()}
     >
