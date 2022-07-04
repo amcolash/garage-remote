@@ -19,9 +19,11 @@ self.addEventListener('fetch', (evt) => {
       // Always try to grab newer versions of cached files, but do not block
       if (matching) {
         fetch(request).then(function (response) {
-          caches.open(CACHE).then((cache) => {
-            cache.put(request, response);
-          });
+          if (isCacheable(request)) {
+            caches.open(CACHE).then((cache) => {
+              cache.put(request, response);
+            });
+          }
         });
       }
 
@@ -30,6 +32,12 @@ self.addEventListener('fetch', (evt) => {
     })
   );
 });
+
+// Only cache GET + http/https requests, from: https://github.com/DockYard/ember-service-worker-cache-first/pull/7/files
+function isCacheable(request) {
+  let httpRegex = /https?/;
+  return request.method === 'GET' && httpRegex.test(request.url);
+}
 
 function precache() {
   return caches.open(CACHE).then(function (cache) {

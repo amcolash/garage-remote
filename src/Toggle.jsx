@@ -75,7 +75,7 @@ export function Toggle(props) {
 
           setStatus('loading');
 
-          fetch(url)
+          fetch(url, { method: 'POST' })
             .then((res) => res.text())
             .then((data) => {
               console.log(data);
