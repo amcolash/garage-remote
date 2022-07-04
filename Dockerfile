@@ -13,5 +13,8 @@ RUN npm ci
 # Copy source code
 COPY . ./
 
+# Build static site
+RUN npm run build
+
 # Set things up
 EXPOSE 8003
