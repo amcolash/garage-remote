@@ -9,4 +9,6 @@ services:
     volumes:
       - ./.cert:/usr/src/app/.cert
     entrypoint: npm run docker
+    env_file:
+      - .env
     restart: unless-stopped
