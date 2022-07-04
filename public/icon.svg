@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 650 650"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="icon.svg"
+   width="650"
+   height="650"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   inkscape:export-filename="/home/amcolash/Desktop/garage/src/icons/icon-512.png"
+   inkscape:export-xdpi="75.618462"
+   inkscape:export-ydpi="75.618462">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1387"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="0.921875"
+     inkscape:cx="126.71207"
+     inkscape:cy="288.11316"
+     inkscape:window-x="0"
+     inkscape:window-y="28"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <rect
+     style="fill:#252525;fill-opacity:1;stroke:none;stroke-width:11.73585796;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="rect812"
+     width="650"
+     height="650"
+     x="0"
+     y="0" />
+  <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path
+     id="path2"
+     d="m 68.117424,432.0339 c 0,-11.86293 9.588454,-21.40678 21.406781,-21.40678 66.994295,0 121.305075,54.3197 121.305075,121.30508 0,11.86292 -9.54385,21.40678 -21.40677,21.40678 -11.86293,0 -21.40678,-9.54386 -21.40678,-21.40678 0,-43.34873 -35.1428,-78.49153 -78.491525,-78.49153 -11.818327,0 -21.406781,-9.54385 -21.406781,-21.40677 z m 0,92.76271 c 0,-15.7875 12.781632,-28.54238 28.542374,-28.54238 15.760742,0 28.542372,12.75488 28.542372,28.54238 0,15.7875 -12.78163,28.54237 -28.542372,28.54237 -15.760742,0 -28.542374,-12.75487 -28.542374,-28.54237 z M 296.4564,531.9322 c 0,11.86292 -9.54385,21.40678 -21.40678,21.40678 -11.86292,0 -21.40678,-9.54386 -21.40678,-21.40678 0,-90.62203 -73.49661,-164.11864 -164.118635,-164.11864 -11.818327,0 -21.406781,-9.54386 -21.406781,-21.40678 C 68.117424,334.54385 77.705878,325 89.524205,325 203.78289,325 296.4564,417.67351 296.4564,531.9322 Z M 367.81234,96.661015 c -6.93491,0 -13.86912,2.52317 -19.35461,7.569375 L 162.93231,275.49682 c -4.10297,3.7462 -6.88605,8.56341 -8.24181,13.64752 28.25595,6.69477 54.55949,18.49579 77.94972,34.34701 h 255.8065 c 7.84915,0 14.27119,3.31979 14.27119,7.376 v 8.29583 c 0,4.05622 -6.42204,7.376 -14.27119,7.376 H 261.58503 c 4.35888,4.05295 8.56765,8.26636 12.61968,12.63013 h 214.24201 c 7.84915,0 14.27119,3.3198 14.27119,7.376 v 8.29583 c 0,4.05622 -6.42204,7.376 -14.27119,7.376 H 293.11508 c 2.97401,4.11201 5.80923,8.33049 8.52752,12.63014 h 186.80412 c 7.84915,0 14.27119,3.31981 14.27119,7.376 v 8.29583 c 0,4.05622 -6.42204,7.376 -14.27119,7.376 H 314.53405 c 2.0297,4.14529 3.94094,8.35859 5.73844,12.63013 h 168.17423 c 7.84915,0 14.27119,3.3198 14.27119,7.376 v 8.29584 c 0,4.05621 -6.42204,7.376 -14.27119,7.376 H 328.62581 c 1.42514,4.65709 2.71838,9.37045 3.86569,14.13878 h 149.49033 c 23.63665,0 42.81356,-19.17691 42.81356,-42.81356 V 325 h 28.54237 c 11.77373,0 22.29942,-7.22549 26.58078,-18.10727 4.28136,-10.97097 1.42573,-23.45756 -7.22618,-31.39591 L 387.16694,104.23039 c -5.48549,-5.046205 -12.4197,-7.569375 -19.3546,-7.569375 z"
+     inkscape:connector-curvature="0"
+     style="fill:#cccccc;fill-opacity:1;stroke-width:0.89194918" />
+</svg>
