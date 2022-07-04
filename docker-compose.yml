@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  garage-remote:
+    image: amcolash/garage-remote
+    container_name: garage-remote
+    build: ./
+    ports:
+      - 8003:8003
+    network_mode: 'host'
+    entrypoint: npm run docker
+    restart: unless-stopped

@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "vite --host",
+    "docker": "vite --host --port 8003 --strictPort",
     "build": "vite build"
   },
   "dependencies": {
