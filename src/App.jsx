@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { cssRule, style } from 'typestyle';
 
 import lock from './icons/lock.svg';
@@ -21,15 +21,23 @@ const button = style({
   $nest: { img: { width: '1em', height: '1em' } },
 });
 
-export function App() {
-  // Only lock when in prod
-  const shouldLock = import.meta.env.PROD || true;
+// Only lock when in prod
+const shouldLock = import.meta.env.PROD || true;
 
+let inactiveTimeout;
+
+export function App() {
   const [locked, setLocked] = useState(shouldLock);
 
-  useEffect(() => {
-    setTimeout(() => setLocked(true), 1000 * 60);
+  // On load and whenever there is a click, reset timer to lock
+  const setTimer = useCallback(() => {
+    if (inactiveTimeout) clearTimeout(inactiveTimeout);
+    inactiveTimeout = setTimeout(() => setLocked(true), 1000 * 60);
   }, [locked, setLocked]);
+
+  useEffect(() => {
+    setTimer();
+  }, [setTimer]);
 
   return (
     <div
@@ -42,6 +50,7 @@ export function App() {
         alignItems: 'center',
         fontFamily: 'sans-serif',
       }}
+      onClick={(e) => setTimer()}
     >
       <h1 style={{ color: '#ccc', textAlign: 'center', marginTop: 0, marginBottom: '1em' }}>Garage Remote</h1>
 

@@ -8,7 +8,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
-  "start_url": "/garage-remote/",
+  "start_url": "/",
 
   "icons": [
     {
