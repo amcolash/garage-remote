@@ -5,14 +5,30 @@ var CACHE = 'garage-remote-1';
 self.addEventListener('install', function (evt) {
   console.log('The service worker is being installed.');
 
+  // Precache and clean up old caches
   evt.waitUntil(precache());
+  evt.waitUntil(cleanup());
 });
 
-self.addEventListener('fetch', function (evt) {
-  console.log('The service worker is serving the asset.');
+// Cache most parts, but fetch from network if not availible locally
+self.addEventListener('fetch', (evt) => {
+  let request = evt.request;
 
-  evt.respondWith(fromCache(evt.request));
-  evt.waitUntil(update(evt.request));
+  evt.respondWith(
+    caches.match(request).then((matching) => {
+      // Always try to grab newer versions of cached files, but do not block
+      if (matching) {
+        fetch(request).then(function (response) {
+          caches.open(CACHE).then((cache) => {
+            cache.put(request, response);
+          });
+        });
+      }
+
+      // Serve the cached match immediately or grab from network
+      return matching || fetch(request);
+    })
+  );
 });
 
 function precache() {
@@ -21,18 +37,18 @@ function precache() {
   });
 }
 
-function fromCache(request) {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.match(request).then(function (matching) {
-      return matching || Promise.reject('no-match');
-    });
-  });
-}
-
-function update(request) {
-  return caches.open(CACHE).then(function (cache) {
-    return fetch(request).then(function (response) {
-      return cache.put(request, response);
-    });
+// Wipe no longer useful caches
+function cleanup() {
+  return caches.keys().then((cacheNames) => {
+    return Promise.all(
+      cacheNames
+        .filter((cacheName) => {
+          return cacheName !== CACHE;
+        })
+        .map((cacheName) => {
+          console.log('Deleting old service worker cache', cacheName);
+          return caches.delete(cacheName);
+        })
+    );
   });
 }
