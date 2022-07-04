@@ -3,7 +3,7 @@
   "id": "com.amcolash.garage-remote",
   "name": "Garage Remote",
   "short_name": "Garage",
-  "theme_color": "#252525",
+  "theme_color": "#cccccc",
   "background_color": "#252525",
   "display": "standalone",
   "orientation": "portrait",
