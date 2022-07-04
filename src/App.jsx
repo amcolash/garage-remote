@@ -37,11 +37,14 @@ export function App() {
         width: '100vw',
         height: '100vh',
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: 'sans-serif',
       }}
     >
+      <h1 style={{ color: '#ccc', textAlign: 'center', marginTop: 0, marginBottom: '1em' }}>Garage Remote</h1>
+
       {locked ? <Lock setLocked={setLocked} /> : <Toggle />}
 
       {!locked && (

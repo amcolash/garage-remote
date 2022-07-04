@@ -12,6 +12,7 @@ const button = style({
   width: 'min(50vh, 50vw)',
   height: 'min(50vh, 50vw)',
   border: 'none',
+  marginTop: '4em',
   padding: 'clamp(1em, 4vw, 4em)',
   borderRadius: '1em',
   color: 'white',
@@ -67,7 +68,7 @@ export function Toggle(props) {
     <div>
       <button
         className={button}
-        style={{ background: status === 'loading' ? '#8c8' : status === 'error' ? '#c55' : status === 'success' ? '#55c' : '#5c5' }}
+        style={{ background: status === 'loading' ? '#8c8' : status === 'error' ? '#c55' : status === 'success' ? '#55c' : '#5a5' }}
         onClick={() => {
           const totpCode = totp(code);
           const url = `http://${server}/toggle?code=${totpCode}`;
