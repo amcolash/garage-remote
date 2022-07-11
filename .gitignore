@@ -106,3 +106,5 @@ dist
 
 dist/
 .cert
+*.pem
+key.h
