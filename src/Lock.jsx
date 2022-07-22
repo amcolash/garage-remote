@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { keyframes, style } from 'typestyle';
 import { codeKey } from './const';
 
@@ -62,6 +62,21 @@ const button = style({
 export function Lock(props) {
   const [code, setCode] = useState(localStorage.getItem(codeKey));
   const [value, setValue] = useState('');
+
+  const handleKey = useCallback(
+    (e) => {
+      const num = Number.parseInt(e.key);
+      if (Number.isInteger(num)) {
+        setValue(value + num.toString());
+      }
+    },
+    [value, setCode]
+  );
+
+  useEffect(() => {
+    document.addEventListener('keyup', handleKey);
+    return () => document.removeEventListener('keyup', handleKey);
+  }, [handleKey]);
 
   useEffect(() => {
     if (!code) {
