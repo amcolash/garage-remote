@@ -16,13 +16,18 @@ cssRule('*', {
 const button = style({
   position: 'absolute',
   bottom: '1em',
+  width: '2.25em',
+  height: '2.25em',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   background: 'none',
   border: 'none',
   $nest: { img: { width: '1em', height: '1em' } },
 });
 
 // Only lock when in prod
-const shouldLock = import.meta.env.PROD || true;
+const shouldLock = import.meta.env.PROD;
 
 let inactiveTimeout;
 
@@ -66,7 +71,7 @@ export function App() {
       {!locked && (
         <button
           className={button}
-          style={{ right: '3.5em' }}
+          style={{ right: '4.25em' }}
           onClick={() => {
             if (confirm('Do you want to reset server?')) {
               localStorage.removeItem(serverKey);

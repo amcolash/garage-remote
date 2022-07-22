@@ -11,6 +11,7 @@ const button = style({
   alignItems: 'center',
   width: 'min(50vh, 50vw)',
   height: 'min(50vh, 50vw)',
+  outlineOffset: '0.5em',
   border: 'none',
   marginTop: '4em',
   padding: 'clamp(1em, 4vw, 4em)',
@@ -18,6 +19,7 @@ const button = style({
   color: 'white',
   textShadow: '1px 1px 2px #333',
   transition: 'all 0.25s',
+  overflow: 'hidden',
 
   $nest: {
     '&:active': {
