@@ -11,7 +11,8 @@
 
 #include "key.h"
 
-#define PIN D1
+#define OPENER_PIN D1
+#define DOOR_PIN D2
 
 // Define NTP Client to get time
 WiFiUDP ntpUDP;
@@ -29,8 +30,9 @@ String totpCode = String("");
 ESP8266WebServer server(80);
 
 void setup() {
-  pinMode(PIN, OUTPUT);
-  digitalWrite(PIN, LOW);
+  pinMode(OPENER_PIN, OUTPUT);
+  pinMode(DOOR_PIN, INPUT_PULLUP);
+  digitalWrite(OPENER_PIN, LOW);
   
   Serial.begin(115200);
 
@@ -49,6 +51,7 @@ void setup() {
   timeClient.update();
 
   server.on("/toggle", handleToggle);
+  server.on("/status", handleStatus);
   server.begin();
 }
 
@@ -87,11 +90,11 @@ void handleToggle() {
       Serial.println("Success");
       server.send(200, "text/plain", "Success");
   
-      digitalWrite(PIN, HIGH);
+      digitalWrite(OPENER_PIN, HIGH);
       digitalWrite(LED_BUILTIN, LOW);
       delay(150);
   
-      digitalWrite(PIN, LOW);
+      digitalWrite(OPENER_PIN, LOW);
       digitalWrite(LED_BUILTIN, HIGH);
     } else {
       Serial.println("Invalid");
@@ -100,6 +103,14 @@ void handleToggle() {
   } else {
     server.send(405, "text/plain", "Method Not Allowed");
   }
+}
+
+void handleStatus() {
+  bool status = digitalRead(DOOR_PIN);
+
+  server.sendHeader("Access-Control-Allow-Origin", "*");
+  if (status) server.send(200, "application/json", "{ \"open\": true }");
+  else server.send(200, "application/json", "{ \"open\": false }");
 }
 
 void loop() {
