@@ -92,7 +92,7 @@ export function Toggle(props) {
         <Icon />
       </button>
 
-      <div style={{ color: 'white', textAlign: 'center', marginTop: '2em', fontSize: '2em', textTransform: 'capitalize' }}>
+      <div style={{ color: 'white', textAlign: 'center', margin: '0.75em  0', fontSize: '2em', textTransform: 'capitalize' }}>
         {status}
         {!status && '\u00A0'}
       </div>

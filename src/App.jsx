@@ -2,8 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { cssRule, style } from 'typestyle';
 
 import lock from './icons/lock.svg';
-import server from './icons/server.svg';
+import serverIcon from './icons/server.svg';
 import trash from './icons/trash.svg';
+import arrowDown from './icons/arrow-down.svg';
+import arrowUp from './icons/arrow-up.svg';
 
 import { Lock } from './Lock';
 import { Toggle } from './Toggle';
@@ -33,6 +35,7 @@ let inactiveTimeout;
 
 export function App() {
   const [locked, setLocked] = useState(shouldLock);
+  const [doorStatus, setDoorStatus] = useState(undefined);
 
   // On load and whenever there is a click, reset timer to lock
   const setTimer = useCallback(() => {
@@ -43,6 +46,23 @@ export function App() {
   useEffect(() => {
     setTimer();
   }, [setTimer]);
+
+  const updateDoorStatus = useCallback(() => {
+    const server = localStorage.getItem(serverKey);
+
+    if (server) {
+      fetch(`${server}/status`)
+        .then((res) => res.json())
+        .then((data) => {
+          setDoorStatus(data.open);
+        });
+    }
+  }, [serverKey, setDoorStatus]);
+
+  useEffect(() => {
+    updateDoorStatus();
+    setInterval(updateDoorStatus, 7000);
+  }, [updateDoorStatus]);
 
   return (
     <div
@@ -80,7 +100,7 @@ export function App() {
             }
           }}
         >
-          <img src={server} />
+          <img src={serverIcon} />
         </button>
       )}
 
@@ -99,6 +119,8 @@ export function App() {
       >
         <img src={trash} />
       </button>
+
+      {!locked && doorStatus !== undefined && <img src={doorStatus ? arrowUp : arrowDown} style={{ width: '2.5em', height: '2.5em' }} />}
     </div>
   );
 }
