@@ -47,7 +47,9 @@ app.use('/esp', [
 
     // Filter out ip addresses before passing on to ESP
     if (validIPs.indexOf(ip) === -1) {
+      console.error('Unknown ip address', ip);
       res.send(401);
+
       return;
     }
 
