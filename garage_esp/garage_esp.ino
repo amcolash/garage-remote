@@ -85,6 +85,7 @@ void handleToggle() {
   
     Serial.println("Got a code: " + arg);
     Serial.println("Expected: " + code);
+    Serial.println("Current time:" + timeClient.getEpochTime());
   
     if (arg == code) {
       Serial.println("Success");

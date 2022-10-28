@@ -41,6 +41,7 @@ export function Toggle(props) {
   const [code, setCode] = useState(localStorage.getItem(cryptKey));
   const [server, setServer] = useState(localStorage.getItem(serverKey));
   const [status, setStatus] = useState();
+  const [statusText, setStatusText] = useState();
 
   useEffect(() => {
     if (!code) {
@@ -66,26 +67,40 @@ export function Toggle(props) {
     if (status !== undefined && status !== 'loading') setTimeout(() => setStatus(), 3000);
   }, [status]);
 
+  useEffect(() => {
+    if (status !== 'error') setStatusText();
+  }, [status, setStatusText]);
+
   return (
     <div>
       <button
         className={button}
         style={{ background: status === 'loading' ? '#8c8' : status === 'error' ? '#c55' : status === 'success' ? '#55c' : '#5a5' }}
         onClick={() => {
-          const totpCode = totp(code);
+          let totpCode = 1337;
+          try {
+            totpCode = totp(code);
+          } catch (err) {
+            console.error(err);
+          }
+
           const url = `${server}/toggle?code=${totpCode}`;
 
           setStatus('loading');
 
           fetch(url, { method: 'POST' })
-            .then((res) => res.text())
+            .then(async (res) => {
+              if (res.ok) return res.text();
+              else throw `${res.status} ${res.statusText}: ${await res.text()}`;
+            })
             .then((data) => {
               console.log(data);
               setStatus('success');
             })
             .catch((err) => {
               console.error(err);
-              setStatus('error');
+              setStatus(`error`);
+              setStatusText(err);
             });
         }}
       >
@@ -95,6 +110,8 @@ export function Toggle(props) {
       <div style={{ color: 'white', textAlign: 'center', margin: '0.75em  0', fontSize: '2em', textTransform: 'capitalize' }}>
         {status}
         {!status && '\u00A0'}
+
+        {statusText && <div style={{ fontSize: '0.75em', marginTop: '0.25em' }}>{statusText}</div>}
       </div>
     </div>
   );
