@@ -81,22 +81,22 @@ void handleToggle() {
     }
     
     String arg = server.arg("code");
+    
+    String prevCode = String(totp.getCode(timeClient.getEpochTime() - 30));
     String code = String(totp.getCode(timeClient.getEpochTime()));
-  
+    String nextCode = String(totp.getCode(timeClient.getEpochTime() + 30));
+
     Serial.println("Got a code: " + arg);
     Serial.println("Expected: " + code);
+    Serial.println("Expected (prev): " + prevCode);
+    Serial.println("Expected (next): " + nextCode);
     Serial.println("Current time:" + timeClient.getEpochTime());
   
     if (arg == code) {
       Serial.println("Success");
       server.send(200, "text/plain", "Success");
   
-      digitalWrite(OPENER_PIN, HIGH);
-      digitalWrite(LED_BUILTIN, LOW);
-      delay(150);
-  
-      digitalWrite(OPENER_PIN, LOW);
-      digitalWrite(LED_BUILTIN, HIGH);
+      openDoor();
     } else {
       Serial.println("Invalid");
       server.send(401, "text/plain", "Invalid Code");
@@ -104,6 +104,15 @@ void handleToggle() {
   } else {
     server.send(405, "text/plain", "Method Not Allowed");
   }
+}
+
+void openDoor() {
+  digitalWrite(OPENER_PIN, HIGH);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(150);
+
+  digitalWrite(OPENER_PIN, LOW);
+  digitalWrite(LED_BUILTIN, HIGH);
 }
 
 void handleStatus() {
