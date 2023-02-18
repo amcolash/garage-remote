@@ -40,7 +40,7 @@ export function App() {
   // On load and whenever there is a click, reset timer to lock
   const setTimer = useCallback(() => {
     if (inactiveTimeout) clearTimeout(inactiveTimeout);
-    inactiveTimeout = setTimeout(() => setLocked(true), 1000 * 60);
+    inactiveTimeout = setTimeout(() => setLocked(true), 1000 * 90);
   }, [locked, setLocked]);
 
   useEffect(() => {

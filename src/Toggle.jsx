@@ -42,6 +42,7 @@ export function Toggle(props) {
   const [server, setServer] = useState(localStorage.getItem(serverKey));
   const [status, setStatus] = useState();
   const [statusText, setStatusText] = useState();
+  const [errorCounter, setErrorCounter] = useState(0);
 
   useEffect(() => {
     if (!code) {
@@ -70,6 +71,36 @@ export function Toggle(props) {
   useEffect(() => {
     if (status !== 'error') setStatusText();
   }, [status, setStatusText]);
+
+  useEffect(() => {
+    if (errorCounter >= 3) {
+      setTimeout(() => {
+        if (confirm('Send Panic Code?')) {
+          const url = `${server}/panic?code=${code.replace(/\=/g, '')}`;
+
+          setStatus('loading');
+
+          fetch(url, { method: 'POST' })
+            .then(async (res) => {
+              if (res.ok) return res.text();
+              else throw `${res.status} ${res.statusText}: ${await res.text()}`;
+            })
+            .then((data) => {
+              console.log(data);
+              setStatus('success');
+            })
+            .catch((err) => {
+              console.error(err);
+              setStatus(`error`);
+              setStatusText(err);
+              setErrorCounter(errorCounter + 1);
+            });
+        }
+      }, 350);
+
+      setErrorCounter(0);
+    }
+  }, [errorCounter, setErrorCounter]);
 
   return (
     <div>
@@ -101,6 +132,7 @@ export function Toggle(props) {
               console.error(err);
               setStatus(`error`);
               setStatusText(err);
+              setErrorCounter(errorCounter + 1);
             });
         }}
       >
