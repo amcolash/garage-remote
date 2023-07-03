@@ -14,6 +14,9 @@
 #define OPENER_PIN D1
 #define DOOR_PIN D2
 
+// Uncomment to turn on debug mode (simulated events)
+// #define DEBUG
+
 // Define NTP Client to get time
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP);
@@ -94,7 +97,7 @@ void handleToggle() {
     Serial.println("Expected (next): " + nextCode);
     Serial.println("Current Time: " + String(timeClient.getEpochTime()));
 
-    if (arg == code) {
+    if (arg == code || arg == prevCode || arg == nextCode) {
       Serial.println("Success");
       server.send(200, "text/plain", "Success");
 
@@ -109,12 +112,16 @@ void handleToggle() {
 }
 
 void openDoor() {
-  digitalWrite(OPENER_PIN, HIGH);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(150);
+  #ifdef DEBUG
+    Serial.println("Debug: Open Door");
+  #else
+    digitalWrite(OPENER_PIN, HIGH);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(150);
 
-  digitalWrite(OPENER_PIN, LOW);
-  digitalWrite(LED_BUILTIN, HIGH);
+    digitalWrite(OPENER_PIN, LOW);
+    digitalWrite(LED_BUILTIN, HIGH);
+  #endif
 }
 
 void handleStatus() {
