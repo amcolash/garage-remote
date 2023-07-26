@@ -55,5 +55,5 @@ app.use('/esp', [
 
     next();
   },
-  proxy(process.env.SERVER),
+  proxy(process.env.SERVER, { timeout: 6000 }),
 ]);
