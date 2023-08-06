@@ -52,9 +52,9 @@ export function App() {
 
     if (server) {
       fetch(`${server}/status`)
-        .then((res) => res.json())
+        .then((res) => res.text())
         .then((data) => {
-          setDoorStatus(data.open);
+          setDoorStatus(data === 'open');
         });
     }
   }, [serverKey, setDoorStatus]);

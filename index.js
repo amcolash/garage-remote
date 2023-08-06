@@ -1,7 +1,9 @@
 const proxy = require('express-http-proxy');
 const express = require('express');
+const cors = require('cors');
 const { existsSync, readFileSync } = require('fs');
 const { join } = require('path');
+const { default: fetch } = require('node-fetch');
 
 require('dotenv').config();
 
@@ -39,6 +41,7 @@ if (credentials.cert && credentials.key) {
 }
 
 app.set('trust proxy', true);
+app.use(cors());
 
 app.use(express.static(join(__dirname, 'dist')));
 app.use('/esp', [
@@ -57,3 +60,15 @@ app.use('/esp', [
   },
   proxy(process.env.SERVER, { timeout: 6000 }),
 ]);
+
+app.get('/status', (req, res) => {
+  fetch(process.env.HA_URL, { headers: { Authorization: `Bearer ${process.env.HA_KEY}` } })
+    .then((res) => res.json())
+    .then((data) => {
+      res.send(data.state === 'off' ? 'closed' : 'open');
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send(500);
+    });
+});

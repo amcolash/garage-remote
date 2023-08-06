@@ -76,7 +76,7 @@ export function Toggle(props) {
     if (errorCounter >= 3) {
       setTimeout(() => {
         if (confirm('Send Panic Code?')) {
-          const url = `${server}/panic?code=${code.replace(/\=/g, '')}`;
+          const url = `${server}/esp/panic?code=${code.replace(/\=/g, '')}`;
 
           setStatus('loading');
 
@@ -115,7 +115,7 @@ export function Toggle(props) {
             console.error(err);
           }
 
-          const url = `${server}/toggle?code=${totpCode}`;
+          const url = `${server}/esp/toggle?code=${totpCode}`;
 
           setStatus('loading');
 
